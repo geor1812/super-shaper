@@ -1,9 +1,9 @@
 class SuperShape3D {
-    constructor(ss1, ss2, total, scale) {
+    constructor(ss1, ss2, total, r) {
         this.ss1 = ss1;
         this.ss2 = ss2;
         this.total = total;
-        this.scale = scale;
+        this.r = r;
         //Acts as a two dimensional array with [total + 1][total + 1]
         this.vertices = Array((total + 1) * (total + 1));
     }
@@ -15,9 +15,9 @@ class SuperShape3D {
             for (let j = 0; j < this.total + 1; j++) {
               const lon = map(j, 0, this.total, -PI, PI);
               const r1 = this.ss1.computeRadius(lon)
-              const x = this.scale * r1 * cos(lon) * r2 * cos(lat);
-              const y = this.scale * r1 * sin(lon) * r2 * cos(lat);
-              const z = this.scale * r2 * sin(lat);
+              const x = this.r * r1 * cos(lon) * r2 * cos(lat);
+              const y = this.r * r1 * sin(lon) * r2 * cos(lat);
+              const z = this.r * r2 * sin(lat);
         
               //This index works as if it were [i][j]
               const index = i + j * (this.total + 1);
@@ -27,7 +27,6 @@ class SuperShape3D {
     }
 
     drawMesh() {
-        strokeWeight(1);
         noFill();
         for (let i = 0; i < this.total; i++) {
             beginShape(TRIANGLE_STRIP);
