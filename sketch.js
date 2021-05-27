@@ -26,14 +26,14 @@ function setup() {
   //Defining the default 3D Supershape
   let ss1 = new SuperShape(1, 1, 1, 4, 1, 1);
   let ss2 = new SuperShape(1, 1, 1, 0, 1, 1);
-  superShape = new SuperShape3D(ss1, ss2, 50, 200);
+  superShape = new SuperShape3D(ss1, ss2, 3, 50);
+  superShape.computeVertices();
 }
 
 function draw() {
   background(0);
   //lights();
-
-  superShape.computeVertices();
+  
   stroke(255, 0, 255);
   superShape.drawMesh();
 }
