@@ -26,8 +26,10 @@ class SuperShape3D {
           }
     }
 
-    drawMesh() {
-        noFill();
+    draw(material) {
+        if(material === "mesh") {
+            noFill();
+        }
         for (let i = 0; i < this.total; i++) {
             beginShape(TRIANGLE_STRIP);
             for (let j = 0; j < this.total + 1; j++) {

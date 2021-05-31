@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Supershapes</title>
+  <title>Super Shaper</title>
   <style>
     body {
       padding: 0;
@@ -157,9 +157,11 @@
                 <h4>Style</h4>
                 <div class="row">
                   <div class="col">
-                    <div class="form-group">
+                    <div class="form-group" id="bg-img-div">
                       <label for="bgImg">Background image</label>
-                      <input class="form-control" type="file" id="bgImg" accept=".jpg, .jpeg, .png">
+                      <!--
+                        <input class="form-control" type="file" id="bgImg" accept=".jpg, .jpeg, .png">
+                      -->
                     </div>
                   </div>
                 </div>
@@ -196,7 +198,38 @@
                   <div class="col">
                     <div class="form-group">
                       <label for="strokeW">Stroke weight</label>
-                      <input type="number" min="1" step="1" class="form-control w-75" id="strokeW" value=1>
+                      <input type="number" min="0" step="1" class="form-control w-75" id="strokeW" value=1>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mx-4 p-4">
+                <h4>Camera</h4>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="rX">
+                      <label class="form-check-label" for="rX">
+                        Rotate X
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="rY">
+                      <label class="form-check-label" for="rY">
+                        Rotate Y
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="rZ">
+                      <label class="form-check-label" for="rZ">
+                        Rotate Z
+                      </label>
                     </div>
                   </div>
                 </div>

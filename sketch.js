@@ -12,12 +12,23 @@ let style = {
   bgImg: null
 }
 
+let camera = {
+  rX: false,
+  rY: false,
+  rZ: false,
+}
+
 function setup() {
   //Create p5 canvas for 3D with WEBGL
   const cWidth = document.getElementById("canvasDiv").clientWidth;
   const cHeight = document.getElementById("canvasDiv").clientHeight;
   let canvas = createCanvas(cWidth, cHeight, WEBGL);
   canvas.parent("canvasDiv");
+
+  //Create bgImg input
+  bgImgInput = createFileInput(handleFile);
+  //const bgImgDiv = document.getElementById("bg-img-div");
+  bgImgInput.parent("bg-img-div");
   
   //Enable Camera
   createEasyCam();
@@ -29,25 +40,73 @@ function setup() {
   style.bgColor = color(document.getElementById("bgColor").value);
   style.strokeColor = color(document.getElementById("strokeColor").value);
   style.fillColor = color(document.getElementById("fillColor").value);
-  style.bgImg = loadImage(document.getElementById("bgImg").value);
 
   initGeometryInputs();
-  superShape.computeVertices();
 }
 
 function draw() {
+  lights();
+
+  if(camera.rX) {
+    rotateX(millis() / 1000);
+  }
+  
+  if(camera.rY) {
+    rotateY(millis() / 1000);
+  }
+
+  if(camera.rZ) {
+    rotateZ(millis() / 1000);
+  }
+  
+  superShape.computeVertices();
   if(style.imgMode) {
+    //console.log(style.bgImg);
     background(style.bgImg);
   } else {
     background(style.bgColor);
   }
   stroke(style.strokeColor);
   strokeWeight(style.strokeW);
-  //lights();
-  if(style.material === "mesh") {
-    superShape.drawMesh();
+  fill(style.fillColor);
+  superShape.draw(style.material);
+}
+
+handleFile = (file) => {
+  if (file.type === 'image') {
+    style.bgImg = loadImage(file.data);
+    style.imgMode = true;
   }
 }
+
+//Camera
+const rotateXCheck = document.getElementById("rX");
+const rotateYCheck = document.getElementById("rY");
+const rotateZCheck = document.getElementById("rZ");
+
+rotateXCheck.addEventListener("change", () => {
+  if(rotateXCheck.checked) {
+    camera.rX = true;
+  } else {
+    camera.rX = false;
+  }
+});
+
+rotateYCheck.addEventListener("change", () => {
+  if(rotateYCheck.checked) {
+    camera.rY = true;
+  } else {
+    camera.rY = false;
+  }
+});
+
+rotateZCheck.addEventListener("change", () => {
+  if(rotateZCheck.checked) {
+    camera.rZ = true;
+  } else {
+    camera.rZ = false;
+  }
+});
 
 //Style
 const bgColor = document.getElementById("bgColor");
@@ -55,21 +114,21 @@ const strokeColor = document.getElementById("strokeColor");
 const fillColor = document.getElementById("fillColor");
 const material = document.getElementById("material");
 const strokeW = document.getElementById("strokeW");
-const bgImg = document.getElementById("bgImg");
+//const bgImg = document.getElementById("bgImg");
 
-bgColor.addEventListener("change", (e) => {
+bgColor.addEventListener("change", () => {
   style.bgColor = bgColor.value;
 });
 
-strokeColor.addEventListener("change", (e) => {
+strokeColor.addEventListener("change", () => {
   style.strokeColor = strokeColor.value;
 });
 
-fillColor.addEventListener("change", (e) => {
+fillColor.addEventListener("change", () => {
   style.fillColor = fillColor.value;
 });
 
-material.addEventListener("change", (e) => {
+material.addEventListener("change", () => {
   style.material = material.value;
 });
 
@@ -77,9 +136,13 @@ strokeW.addEventListener("change", (e) => {
   style.strokeW = strokeW.value;
 });
 
-bgImg.addEventListener("change", (e) => {
+/*
+bgImg.addEventListener("change", () => {
+  style.bgImg = URL.createObjectURL(bgImg.files[0]);
+  imgMode = true;
   setup();
 });
+*/
 
 //Geometry
 const total = document.getElementById("total");
@@ -97,72 +160,72 @@ const ss2m = document.getElementById("ss2m");
 const ss2a = document.getElementById("ss2a");
 const ss2b = document.getElementById("ss2b");
 
-total.addEventListener("change", (e) => {
+total.addEventListener("change", () => {
   superShape.total = total.value;
   setup();
 });
 
-r.addEventListener("change", (e) => {
+r.addEventListener("change", () => {
   superShape.r = r.value;
   setup();
 })
 
-ss1n1.addEventListener("change", (e) => {
+ss1n1.addEventListener("change", () => {
   superShape.ss1.n1 = ss1n1.value;
   setup();
 });
 
-ss1n2.addEventListener("change", (e) => {
+ss1n2.addEventListener("change", () => {
   superShape.ss1.n2 = ss1n2.value;
   setup();
 });
 
-ss1n3.addEventListener("change", (e) => {
+ss1n3.addEventListener("change", () => {
   superShape.ss1.n3 = ss1n3.value;
   setup();
 });
 
-ss1m.addEventListener("change", (e) => {
+ss1m.addEventListener("change", () => {
   superShape.ss1.m = ss1m.value;
   setup();
 });
 
-ss1a.addEventListener("change", (e) => {
+ss1a.addEventListener("change", () => {
   superShape.ss1.a = ss1a.value;
   setup();
 });
 
-ss1b.addEventListener("change", (e) => {
+ss1b.addEventListener("change", () => {
   superShape.ss1.b = ss1b.value;
   setup();
 });
 
-ss2n1.addEventListener("change", (e) => {
+ss2n1.addEventListener("change", () => {
   superShape.ss2.n1 = ss2n1.value;
   setup();
 });
 
-ss2n2.addEventListener("change", (e) => {
+ss2n2.addEventListener("change", () => {
   superShape.ss2.n2 = ss2n2.value;
   setup();
 });
 
-ss2n3.addEventListener("change", (e) => {
+ss2n3.addEventListener("change", () => {
   superShape.ss2.n3 = ss2n3.value;
   setup();
 });
 
-ss2m.addEventListener("change", (e) => {
+ss2m.addEventListener("change", () => {
   superShape.ss2.m = ss2m.value;
   setup();
 });
 
-ss2a.addEventListener("change", (e) => {
+ss2a.addEventListener("change", () => {
   superShape.ss2.a = ss2a.value;
   setup();
 });
 
-ss2b.addEventListener("change", (e) => {
+ss2b.addEventListener("change", () => {
   superShape.ss2.b = ss2b.value;
   setup();
 });
