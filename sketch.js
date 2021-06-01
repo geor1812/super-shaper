@@ -1,7 +1,7 @@
-let ss1 = new SuperShape(1, 1, 1, 4, 1, 1);
-let ss2 = new SuperShape(1, 1, 1, 0, 1, 1);
+let ss1 = new SuperShape(0.249, 47.81, -0.86, 6, 1, 1);
+let ss2 = new SuperShape(-76.88, 0.52, -56.7, 7, 1, 1);
 
-let superShape = new SuperShape3D(ss1, ss2, 4, 200);
+let superShape = new SuperShape3D(ss1, ss2, 3, 200);
 let style = {
   imgMode: false,
   bgColor: null,
@@ -24,11 +24,6 @@ function setup() {
   const cHeight = document.getElementById("canvasDiv").clientHeight;
   let canvas = createCanvas(cWidth, cHeight, WEBGL);
   canvas.parent("canvasDiv");
-
-  //Create bgImg input
-  bgImgInput = createFileInput(handleFile);
-  //const bgImgDiv = document.getElementById("bg-img-div");
-  bgImgInput.parent("bg-img-div");
   
   //Enable Camera
   createEasyCam();
@@ -72,13 +67,6 @@ function draw() {
   superShape.draw(style.material);
 }
 
-handleFile = (file) => {
-  if (file.type === 'image') {
-    style.bgImg = loadImage(file.data);
-    style.imgMode = true;
-  }
-}
-
 //Camera
 const rotateXCheck = document.getElementById("rX");
 const rotateYCheck = document.getElementById("rY");
@@ -114,7 +102,7 @@ const strokeColor = document.getElementById("strokeColor");
 const fillColor = document.getElementById("fillColor");
 const material = document.getElementById("material");
 const strokeW = document.getElementById("strokeW");
-//const bgImg = document.getElementById("bgImg");
+const bgImg = document.getElementById("bgImg");
 
 bgColor.addEventListener("change", () => {
   style.bgColor = bgColor.value;
@@ -135,14 +123,6 @@ material.addEventListener("change", () => {
 strokeW.addEventListener("change", (e) => {
   style.strokeW = strokeW.value;
 });
-
-/*
-bgImg.addEventListener("change", () => {
-  style.bgImg = URL.createObjectURL(bgImg.files[0]);
-  imgMode = true;
-  setup();
-});
-*/
 
 //Geometry
 const total = document.getElementById("total");

@@ -27,20 +27,35 @@ class SuperShape3D {
     }
 
     draw(material) {
-        if(material === "mesh") {
-            noFill();
-        }
-        for (let i = 0; i < this.total; i++) {
-            beginShape(TRIANGLE_STRIP);
-            for (let j = 0; j < this.total + 1; j++) {
-                const index1 = i + j * (this.total + 1);
-                const v1 = this.vertices[index1];
-                vertex(v1.x, v1.y, v1.z);
-                const index2 = (i + 1) + j * (this.total + 1);
-                const v2 = this.vertices[index2];
-                vertex(v2.x, v2.y, v2.z);
+        if(material === "mesh" || material === "solid") {
+            if(material === "mesh") {
+                noFill();
             }
-            endShape();
+            for (let i = 0; i < this.total; i++) {
+                beginShape(TRIANGLE_STRIP);
+                for (let j = 0; j < this.total + 1; j++) {
+                    const index1 = i + j * (this.total + 1);
+                    const v1 = this.vertices[index1];
+                    vertex(v1.x, v1.y, v1.z);
+                    const index2 = (i + 1) + j * (this.total + 1);
+                    const v2 = this.vertices[index2];
+                    vertex(v2.x, v2.y, v2.z);
+                }
+                endShape();
+            }
+        } else {
+            for (let i = 0; i < this.total; i++) {
+                for (let j = 0; j < this.total + 1; j++) {
+                    const index1 = i + j * (this.total + 1);
+                    const v1 = this.vertices[index1];
+                    const index2 = (i + 1) + j * (this.total + 1);
+                    const v2 = this.vertices[index2];
+                    push();
+                    translate(v1.x, v1.y, v1.z);
+                    box(5);
+                    pop();
+                }
+            }
         }
     }
 } 
