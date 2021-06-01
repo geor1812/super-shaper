@@ -2,11 +2,6 @@ let ss1 = new SuperShape(0.249, 47.81, -0.86, 6, 1, 1);
 let ss2 = new SuperShape(-76.88, 0.52, -56.7, 7, 1, 1);
 let superShape = new SuperShape3D(ss1, ss2, 3, 200);
 
-let image;
-function preload() {
-  image = loadImage("/uploads/pink.jpg");
-}
-
 let style = {
   imgMode: false,
   bgColor: null,
@@ -67,7 +62,7 @@ function draw() {
   } else {
     background(style.bgColor);
   }
-  
+
   stroke(style.strokeColor);
   strokeWeight(style.strokeW);
   fill(style.fillColor);
