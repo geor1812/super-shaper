@@ -56,3 +56,7 @@ body {
   height: 36px;
   vertical-align: middle;
 }
+
+.my-btn {
+  background-color: #404040;
+}
