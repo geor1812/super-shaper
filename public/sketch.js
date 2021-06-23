@@ -68,12 +68,6 @@ function draw() {
     ss2.m = map(sin(mod.mChange2), -1, 1, mod.ll2, mod.ul2);
   }
   
-  /*
-  if (frameCount === 1) {
-    capturer.start();
-  }
-  */
-  
   if(camera.rX) {
     rotateX(millis() / 1000);
   }
@@ -99,15 +93,17 @@ function draw() {
   capturer.capture(canvas);
 }
 
-/*
+//Recording
 function keyPressed() {
-  if (keyCode === LEFT_ARROW) {
-    value = 255;
+  if (key === "z") {
+    capturer.start();
+  }
+  if (key === "x") {
     capturer.save();
     capturer.stop();
   } 
 }
-*/
+
 
 //Modulation
 const on1 = document.getElementById("on1");
