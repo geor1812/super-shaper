@@ -1,21 +1,39 @@
+let capturer = new CCapture ({
+  format: "webm",
+  framerate: 30,
+  verbose: true
+});
+
 let ss1 = new SuperShape(0.249, 47.81, -0.86, 6, 1, 1);
 let ss2 = new SuperShape(-76.88, 0.52, -56.7, 7, 1, 1);
 let superShape = new SuperShape3D(ss1, ss2, 3, 200);
 
 let style = {
-  imgMode: false,
   bgColor: null,
   strokeColor: null,
   fillColor: null,
   material: document.getElementById("material").value,
   strokeW: document.getElementById("strokeW").value,
-  bgImg: null,
 }
 
 let camera = {
   rX: false,
   rY: false,
   rZ: false,
+}
+
+let easyCam;
+let mod = {
+  on1 : false,
+  ll1 : 0,
+  ul1 : 10,
+  speed1: 1,
+  mChange1: 0,
+  on2 : false,
+  ll2 : 0,
+  ul2 : 10,
+  speed2: 1,
+  mChange2: 0
 }
 
 function setup() {
@@ -26,7 +44,7 @@ function setup() {
   canvas.parent("canvasDiv");
   
   //Enable Camera
-  createEasyCam();
+  easyCam = createEasyCam();
   //Suppressing right-click context menu
   document.oncontextmenu = function() { return false; }
 
@@ -40,14 +58,28 @@ function setup() {
 }
 
 function draw() {
-  lights();
+  if(mod.on1) {
+    mod.mChange1 += mod.speed1 / 100000;
+    ss1.m = map(sin(mod.mChange1), -1, 1, mod.ll1, mod.ul1);
+  }
 
+  if(mod.on2) {
+    mod.mChange2 += mod.speed2 / 100000;
+    ss2.m = map(sin(mod.mChange2), -1, 1, mod.ll2, mod.ul2);
+  }
+  
+  /*
+  if (frameCount === 1) {
+    capturer.start();
+  }
+  */
+  
   if(camera.rX) {
     rotateX(millis() / 1000);
   }
   
   if(camera.rY) {
-    rotateY(millis() / 1000);
+    rotateY(millis() / 1000); 
   }
 
   if(camera.rZ) {
@@ -56,18 +88,78 @@ function draw() {
   
   superShape.computeVertices();
 
-  
-  if(style.imgMode) {
-   //background(style.bgImg);
-  } else {
-    background(style.bgColor);
-  }
+  background(style.bgColor);
 
   stroke(style.strokeColor);
   strokeWeight(style.strokeW);
   fill(style.fillColor);
   superShape.draw(style.material);
+
+ 
+  capturer.capture(canvas);
 }
+
+/*
+function keyPressed() {
+  if (keyCode === LEFT_ARROW) {
+    value = 255;
+    capturer.save();
+    capturer.stop();
+  } 
+}
+*/
+
+//Modulation
+const on1 = document.getElementById("on1");
+const on2 = document.getElementById("on2");
+
+on1.addEventListener("change", () => {
+  if(on1.checked) {
+    mod.on1 = true;
+  } else {
+    mod.on1 = false;
+  }
+});
+
+on2.addEventListener("change", () => {
+  if(on2.checked) {
+    mod.on2 = true;
+  } else {
+    mod.on2 = false;
+  }
+});
+
+const ll1 = document.getElementById("ll1");
+const ul1 = document.getElementById("ul1");
+const speed1 = document.getElementById("speed1");
+
+ll1.addEventListener("change", () => {
+  mod.ll1 = ll1.value;  
+});
+
+ul1.addEventListener("change", () => {
+  mod.ul1 = ul1.value;  
+});
+
+speed1.addEventListener("change", () => {
+  mod.speed1 = speed1.value;
+});
+
+const ll2 = document.getElementById("ll2");
+const ul2 = document.getElementById("ul2");
+const speed2 = document.getElementById("speed2");
+
+ll2.addEventListener("change", () => {
+  mod.ll2 = ll2.value;  
+});
+
+ul2.addEventListener("change", () => {
+  mod.ul2 = ul2.value;  
+});
+
+speed1.addEventListener("change", () => {
+  mod.speed2 = speed2.value;
+});
 
 //Camera
 const rotateXCheck = document.getElementById("rX");
@@ -104,8 +196,9 @@ const strokeColor = document.getElementById("strokeColor");
 const fillColor = document.getElementById("fillColor");
 const material = document.getElementById("material");
 const strokeW = document.getElementById("strokeW");
-const form = document.getElementById("imgForm");
 
+/*
+const form = document.getElementById("imgForm");
 async function handleForm(e) {
   e.preventDefault();
   const otherParams = {
@@ -119,7 +212,7 @@ async function handleForm(e) {
   style.imgMode = true;
 }
 form.addEventListener('submit', handleForm);
-
+*/
 
 bgColor.addEventListener("change", () => {
   style.bgColor = bgColor.value;
