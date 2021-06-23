@@ -3,6 +3,7 @@ const app = express();
 const fileUpload = require("express-fileupload");
 
 app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/node_modules/ccapture.js/src"));
 app.use(fileUpload());
 
 app.get("/", (req, res) => {
