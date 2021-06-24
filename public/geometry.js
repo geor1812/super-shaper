@@ -15,72 +15,58 @@ const ss2b = document.getElementById("ss2b");
 
 total.addEventListener("change", () => {
   superShape.total = total.value;
-  setup();
 });
 
 r.addEventListener("change", () => {
   superShape.r = r.value;
-  setup();
 })
 
 ss1n1.addEventListener("change", () => {
   superShape.ss1.n1 = ss1n1.value;
-  setup();
 });
 
 ss1n2.addEventListener("change", () => {
   superShape.ss1.n2 = ss1n2.value;
-  setup();
 });
 
 ss1n3.addEventListener("change", () => {
   superShape.ss1.n3 = ss1n3.value;
-  setup();
 });
 
 ss1m.addEventListener("change", () => {
   superShape.ss1.m = ss1m.value;
-  setup();
 });
 
 ss1a.addEventListener("change", () => {
   superShape.ss1.a = ss1a.value;
-  setup();
 });
 
 ss1b.addEventListener("change", () => {
   superShape.ss1.b = ss1b.value;
-  setup();
 });
 
 ss2n1.addEventListener("change", () => {
   superShape.ss2.n1 = ss2n1.value;
-  setup();
 });
 
 ss2n2.addEventListener("change", () => {
   superShape.ss2.n2 = ss2n2.value;
-  setup();
 });
 
 ss2n3.addEventListener("change", () => {
   superShape.ss2.n3 = ss2n3.value;
-  setup();
 });
 
 ss2m.addEventListener("change", () => {
   superShape.ss2.m = ss2m.value;
-  setup();
 });
 
 ss2a.addEventListener("change", () => {
   superShape.ss2.a = ss2a.value;
-  setup();
 });
 
 ss2b.addEventListener("change", () => {
   superShape.ss2.b = ss2b.value;
-  setup();
 });
 
 
